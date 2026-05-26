@@ -79,6 +79,17 @@
       "note": "5mg vial",
       "badge": "",
       "emoji": "🧠"
+    },
+    {
+      "name": "iii",
+      "cat": "recovery",
+      "catLabel": "hhh",
+      "desc": "hhh",
+      "price": "90",
+      "note": "",
+      "badge": "",
+      "emoji": "",
+      "image": "/images/img_1230.heic"
     }
   ]
 }
