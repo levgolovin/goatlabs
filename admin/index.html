@@ -338,6 +338,7 @@ function renderProducts() {
         '<span class="cat-badge cat-' + p.cat + '">' + escHtml(p.catLabel || p.cat) + '</span>' +
         '<span>' + escHtml(p.price) + '</span>' +
         (p.note ? '<span>' + escHtml(p.note) + '</span>' : '') +
+        (p.stripePriceId ? '<span style="color:#4caf50;font-size:10px;">⚡ Stripe</span>' : '<span style="color:rgba(255,255,255,.25);font-size:10px;">No Stripe</span>') +
       '</div>' +
     '</div>' +
     '<div class="product-actions">' +
@@ -377,7 +378,10 @@ async function saveProducts() {
     if (res.ok && data.success) {
       originalProducts = JSON.parse(JSON.stringify(products));
       document.getElementById('save-bar').classList.remove('visible');
-      showToast('Saved! Site updates in ~30 seconds.', 'success');
+      const stripeMsg = data.stripeStatus === 'synced' ? ' Synced to Stripe ✓' : '';
+      showToast('Saved! Site updates in ~30 seconds.' + stripeMsg, 'success');
+      // Reload products to get Stripe IDs back
+      setTimeout(loadProducts, 3000);
     } else {
       showToast('Save failed: ' + (data.error || 'Unknown error'), 'error');
     }

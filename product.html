@@ -243,6 +243,7 @@ async function buyNow() {
         price: currentProduct.price,
         note: currentProduct.note,
         image: currentProduct.image ? (location.origin + currentProduct.image) : null,
+        stripePriceId: currentProduct.stripePriceId || null,
         qty
       })
     });
