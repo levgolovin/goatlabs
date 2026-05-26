@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOATlabs — Complete Signup</title>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<style>
+  body{margin:0;background:#000;display:flex;align-items:center;justify-content:center;height:100vh;font-family:'Inter',sans-serif;color:#fff}
+  .box{text-align:center}
+  .logo{font-size:32px;font-weight:900;color:#D4AF37;letter-spacing:3px;margin-bottom:8px}
+  p{color:rgba(255,255,255,.5);font-size:14px}
+  .spinner{width:32px;height:32px;border:2px solid rgba(212,175,55,.2);border-top-color:#D4AF37;border-radius:50%;animation:spin .8s linear infinite;margin:24px auto}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="logo">GOATlabs</div>
+  <p>Setting up your admin account...</p>
+  <div class="spinner"></div>
+</div>
+<script>
+  netlifyIdentity.on('init', function() {
+    netlifyIdentity.open();
+  });
+  netlifyIdentity.on('login', function() {
+    window.location.href = '/admin/';
+  });
+  netlifyIdentity.on('error', function(err) {
+    document.querySelector('p').textContent = 'Error: ' + err.message;
+  });
+</script>
+</body>
+</html>

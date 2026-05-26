@@ -7,9 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
-  // Redirect invite/recovery tokens to the admin panel
-  if (window.location.hash && /invite_token|recovery_token|access_token/.test(window.location.hash)) {
-    window.location.replace('/admin/' + window.location.hash);
+  // Redirect invite/recovery tokens to the confirm page
+  if (window.location.hash && /invite_token|recovery_token/.test(window.location.hash)) {
+    window.location.replace('/confirm.html' + window.location.hash);
   }
 </script>
 <style>
