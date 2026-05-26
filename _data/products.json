@@ -8,7 +8,7 @@
       "price": "$89.99",
       "note": "5mg vial",
       "badge": "Best Seller",
-      "emoji": "⬡"
+      "emoji": "🔬"
     },
     {
       "name": "TB-500",
@@ -18,7 +18,7 @@
       "price": "$94.99",
       "note": "5mg vial",
       "badge": "",
-      "emoji": "◈"
+      "emoji": "🧬"
     },
     {
       "name": "Semaglutide",
@@ -28,7 +28,7 @@
       "price": "$129.99",
       "note": "2mg vial",
       "badge": "Popular",
-      "emoji": "◆"
+      "emoji": "⚖️"
     },
     {
       "name": "Tirzepatide",
@@ -38,7 +38,7 @@
       "price": "$149.99",
       "note": "5mg vial",
       "badge": "New",
-      "emoji": "⬟"
+      "emoji": "💉"
     },
     {
       "name": "CJC-1295",
@@ -48,7 +48,7 @@
       "price": "$74.99",
       "note": "2mg vial",
       "badge": "",
-      "emoji": "◇"
+      "emoji": "⚡"
     },
     {
       "name": "Ipamorelin",
@@ -58,7 +58,7 @@
       "price": "$69.99",
       "note": "5mg vial",
       "badge": "",
-      "emoji": "△"
+      "emoji": "💪"
     },
     {
       "name": "Epithalon",
@@ -68,7 +68,7 @@
       "price": "$84.99",
       "note": "10mg vial",
       "badge": "",
-      "emoji": "✦"
+      "emoji": "✨"
     },
     {
       "name": "Selank",
@@ -78,18 +78,7 @@
       "price": "$79.99",
       "note": "5mg vial",
       "badge": "",
-      "emoji": "⊕"
-    },
-    {
-      "name": "n9gaggaf",
-      "cat": "recovery",
-      "catLabel": "Recovery",
-      "desc": "rrrrrr",
-      "price": "948",
-      "note": "rrr",
-      "badge": "",
-      "emoji": "rr",
-      "image": "ChatGPT Image May 26, 2026 at 02_20_14 PM.png"
+      "emoji": "🧠"
     }
   ]
 }
