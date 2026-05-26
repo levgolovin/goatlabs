@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GOATlabs | Premium Research Peptides</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  // Redirect invite/recovery tokens to the admin panel
+  if (window.location.hash && /invite_token|recovery_token|access_token/.test(window.location.hash)) {
+    window.location.replace('/admin/' + window.location.hash);
+  }
+</script>
 <style>
 :root{--gold:#D4AF37;--gold-light:#F0D060;--gold-glow:rgba(212,175,55,.35);--black:#000;--dark:#0A0A0A;--dark2:#111;--dark3:#1A1A1A;--dark4:#222;--muted:#888;--border:rgba(212,175,55,.18);--white:#fff}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
