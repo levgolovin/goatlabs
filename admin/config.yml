@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: levgolovin/goatlabs
   branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 
 media_folder: images
 public_folder: /images
@@ -18,7 +21,7 @@ collections:
             widget: list
             summary: "{{fields.name}} — {{fields.price}}"
             fields:
-              - { label: Name,           name: name,     widget: string }
+              - { label: Name,             name: name,     widget: string }
               - label: Category
                 name: cat
                 widget: select
@@ -27,23 +30,10 @@ collections:
                   - { label: Performance, value: performance }
                   - { label: Longevity,   value: longevity }
                   - { label: Metabolic,   value: metabolic }
-              - { label: Category Label, name: catLabel, widget: string }
-              - { label: Description,    name: desc,     widget: text }
-              - { label: Price,          name: price,    widget: string,  hint: "e.g. $89.99" }
-              - { label: Size / Note,    name: note,     widget: string,  hint: "e.g. 5mg vial" }
-              - { label: Badge,          name: badge,    widget: string,  required: false, hint: "e.g. Best Seller, New, Popular — leave blank for none" }
-              - { label: Product Image,  name: image,    widget: image,   required: false }
-              - { label: Placeholder Icon, name: emoji,  widget: string,  required: false, hint: "Used when no image is uploaded" }
-
-  - name: settings
-    label: Site Settings
-    files:
-      - label: General
-        name: general
-        file: _data/settings.json
-        fields:
-          - { label: Site Title,    name: title,    widget: string }
-          - { label: Tagline,       name: tagline,  widget: string }
-          - { label: Hero Headline, name: heroH1,   widget: string }
-          - { label: Hero Subtitle, name: heroSub,  widget: text }
-          - { label: Contact Email, name: email,    widget: string }
+              - { label: Category Label,   name: catLabel, widget: string }
+              - { label: Description,      name: desc,     widget: text }
+              - { label: Price,            name: price,    widget: string, hint: "e.g. $89.99" }
+              - { label: Size / Note,      name: note,     widget: string, hint: "e.g. 5mg vial" }
+              - { label: Badge,            name: badge,    widget: string, required: false, hint: "e.g. Best Seller — leave blank for none" }
+              - { label: Product Image,    name: image,    widget: image,  required: false }
+              - { label: Placeholder Icon, name: emoji,    widget: string, required: false }
