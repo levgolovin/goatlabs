@@ -1,14 +1,13 @@
+functionsDirectory = "/Users/levgolovin/goatlabs/netlify/functions"
+functionsDirectoryOrigin = "config-v1"
+headersOrigin = "config"
 plugins = []
-headers = []
 redirects = []
-
-[functions]
-
-[functions."*"]
 
 [build]
 publish = "/Users/levgolovin/goatlabs"
-publishOrigin = "default"
+publishOrigin = "config"
+functions = "/Users/levgolovin/goatlabs/netlify/functions"
 
 [build.environment]
 
@@ -23,3 +22,20 @@ publishOrigin = "default"
 [build.processing.js]
 
 [build.services]
+
+[functions]
+
+[functions."*"]
+
+[[headers]]
+for = "/admin/*"
+
+[headers.values]
+X-Frame-Options = "SAMEORIGIN"
+X-Content-Type-Options = "nosniff"
+
+[[headers]]
+for = "/_data/*"
+
+[headers.values]
+Access-Control-Allow-Origin = "*"

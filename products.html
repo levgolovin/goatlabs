@@ -158,8 +158,8 @@ footer{position:relative;z-index:1;background:rgba(0,0,0,.96);border-top:1px sol
   <a href="index.html" class="logo"><img src="images/logo.png" alt="GOATlabs" class="logo-img"></a>
   <ul class="nav-links">
     <li><a href="products.html" class="active">All Peptides</a></li>
+    <li><a href="chat.html">AI Advisor</a></li>
     <li><a href="index.html#science">About Us</a></li>
-    <li><a href="index.html#faq">FAQ</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
   <a href="products.html" class="nav-cta">Shop Now</a>
@@ -244,17 +244,19 @@ function renderProducts(f) {
   document.getElementById('count').textContent = list.length;
   document.getElementById('pgrid').innerHTML = list.map((p,i) => `
     <div class="pcard rv d${(i%4)+1}">
-      <div class="pimg">
-        ${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy">` : `<div class="pimg-ph">${p.emoji}</div>`}
-        ${p.badge ? `<div class="pbadge">${p.badge}</div>` : ''}
-      </div>
+      <a href="product.html?name=${encodeURIComponent(p.name)}" style="text-decoration:none;color:inherit;display:block">
+        <div class="pimg">
+          ${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy">` : `<div class="pimg-ph">${p.emoji}</div>`}
+          ${p.badge ? `<div class="pbadge">${p.badge}</div>` : ''}
+        </div>
+      </a>
       <div class="pbody">
         <div class="pcat">${p.catLabel}</div>
-        <div class="pname">${p.name}</div>
+        <a href="product.html?name=${encodeURIComponent(p.name)}" style="text-decoration:none;color:inherit"><div class="pname">${p.name}</div></a>
         <div class="pdesc">${p.desc}</div>
         <div class="pmeta">
           <div><div class="pprice">${p.price}</div><div class="ppnote">${p.note}</div></div>
-          <button class="pcta">Add to Cart</button>
+          <button class="pcta" onclick="window.location.href='product.html?name=${encodeURIComponent(p.name)}'">View Details</button>
         </div>
       </div>
     </div>`).join('');
