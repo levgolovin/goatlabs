@@ -1,11 +1,453 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GOATlabs CMS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOATlabs Admin</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#000;color:#fff;font-family:'Inter',system-ui,sans-serif;min-height:100vh}
+
+  /* LOGIN */
+  #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse at center,#1a1a0a 0%,#000 70%)}
+  .login-box{background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.25);border-radius:16px;padding:48px 40px;width:100%;max-width:400px;text-align:center}
+  .logo{font-size:28px;font-weight:900;color:#D4AF37;letter-spacing:3px;margin-bottom:4px}
+  .logo-sub{color:rgba(255,255,255,.4);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:36px}
+  .form-group{margin-bottom:16px;text-align:left}
+  label{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px}
+  input[type=email],input[type=password],input[type=text],input[type=number],select,textarea{
+    width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;
+    padding:12px 14px;color:#fff;font-size:14px;outline:none;transition:border .2s
+  }
+  input:focus,select:focus,textarea:focus{border-color:#D4AF37}
+  textarea{resize:vertical;min-height:80px;font-family:inherit}
+  select option{background:#111;color:#fff}
+  .btn-gold{width:100%;padding:14px;background:linear-gradient(135deg,#D4AF37,#B8860B);border:none;border-radius:8px;color:#000;font-weight:700;font-size:14px;letter-spacing:1px;cursor:pointer;transition:opacity .2s;text-transform:uppercase}
+  .btn-gold:hover{opacity:.85}
+  .btn-gold:disabled{opacity:.4;cursor:not-allowed}
+  .error-msg{color:#ff6b6b;font-size:13px;margin-top:12px}
+
+  /* ADMIN PANEL */
+  #admin-panel{display:none}
+  .top-bar{background:rgba(212,175,55,.08);border-bottom:1px solid rgba(212,175,55,.2);padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+  .top-bar .brand{font-size:18px;font-weight:900;color:#D4AF37;letter-spacing:2px}
+  .top-bar .user-info{display:flex;align-items:center;gap:12px;font-size:13px;color:rgba(255,255,255,.5)}
+  .btn-sm{padding:8px 16px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;letter-spacing:.5px}
+  .btn-outline{background:transparent;border:1px solid rgba(212,175,55,.4);color:#D4AF37}
+  .btn-outline:hover{background:rgba(212,175,55,.1)}
+  .btn-danger{background:rgba(255,80,80,.15);border:1px solid rgba(255,80,80,.3);color:#ff6b6b}
+  .btn-danger:hover{background:rgba(255,80,80,.25)}
+  .btn-add{background:linear-gradient(135deg,#D4AF37,#B8860B);color:#000;font-weight:700}
+  .btn-add:hover{opacity:.85}
+
+  .main-content{padding:24px;max-width:1100px;margin:0 auto}
+  .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+  .section-title{font-size:20px;font-weight:700;color:#fff}
+  .section-title span{color:#D4AF37}
+
+  .product-grid{display:grid;gap:12px}
+  .product-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;transition:border .2s}
+  .product-card:hover{border-color:rgba(212,175,55,.25)}
+  .product-emoji{font-size:28px;width:44px;text-align:center;flex-shrink:0}
+  .product-info{flex:1}
+  .product-name{font-weight:600;font-size:15px;margin-bottom:3px}
+  .product-meta{font-size:12px;color:rgba(255,255,255,.4);display:flex;gap:12px;flex-wrap:wrap;margin-top:4px}
+  .cat-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+  .cat-recovery{background:rgba(100,200,100,.15);color:#64c864}
+  .cat-performance{background:rgba(100,100,255,.15);color:#6464ff}
+  .cat-longevity{background:rgba(212,175,55,.15);color:#D4AF37}
+  .cat-metabolic{background:rgba(255,150,50,.15);color:#ff9632}
+  .product-actions{display:flex;gap:8px;flex-shrink:0}
+
+  /* MODAL */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100;align-items:center;justify-content:center;padding:20px}
+  .modal-overlay.open{display:flex}
+  .modal{background:#0d0d0d;border:1px solid rgba(212,175,55,.25);border-radius:16px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto}
+  .modal-header{padding:20px 24px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between}
+  .modal-title{font-size:17px;font-weight:700;color:#D4AF37}
+  .modal-close{background:none;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;line-height:1}
+  .modal-close:hover{color:#fff}
+  .modal-body{padding:24px}
+  .modal-footer{padding:16px 24px;border-top:1px solid rgba(255,255,255,.06);display:flex;gap:10px;justify-content:flex-end}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+  .save-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.9);border:1px solid rgba(212,175,55,.4);border-radius:50px;padding:12px 24px;display:flex;align-items:center;gap:14px;backdrop-filter:blur(10px);z-index:50;transition:opacity .3s;opacity:0;pointer-events:none;white-space:nowrap}
+  .save-bar.visible{opacity:1;pointer-events:all}
+  .save-status{font-size:13px;color:rgba(255,255,255,.6)}
+
+  .toast{position:fixed;top:20px;right:20px;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:999;transition:all .3s;transform:translateX(120%);max-width:320px}
+  .toast.show{transform:translateX(0)}
+  .toast.success{background:#1a3d1a;border:1px solid #4caf50;color:#4caf50}
+  .toast.error{background:#3d1a1a;border:1px solid #f44336;color:#f44336}
+
+  .empty-state{text-align:center;padding:60px 20px;color:rgba(255,255,255,.3)}
+  .empty-state .icon{font-size:48px;margin-bottom:12px}
+
+  @media(max-width:600px){
+    .grid-2{grid-template-columns:1fr}
+    .product-actions{flex-direction:column}
+    .login-box{padding:32px 20px}
+  }
+</style>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="logo">GOATlabs</div>
+    <div class="logo-sub">Admin Panel</div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="btn-gold" id="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="error-msg" id="login-error"></div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <div class="top-bar">
+    <div class="brand">GOATlabs Admin</div>
+    <div class="user-info">
+      <span id="logged-in-email"></span>
+      <button class="btn-sm btn-outline" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="section-header">
+      <div class="section-title">Products <span id="product-count"></span></div>
+      <button class="btn-sm btn-add" onclick="openAddModal()">+ Add Product</button>
+    </div>
+    <div class="product-grid" id="product-list"></div>
+    <div class="empty-state" id="empty-state" style="display:none">
+      <div class="icon">📦</div>
+      <div>No products yet. Click "Add Product" to get started.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SAVE BAR -->
+<div class="save-bar" id="save-bar">
+  <span class="save-status" id="save-status">Unsaved changes</span>
+  <button class="btn-sm btn-add" onclick="saveProducts()" id="save-btn">Save &amp; Publish</button>
+  <button class="btn-sm btn-outline" onclick="discardChanges()">Discard</button>
+</div>
+
+<!-- EDIT / ADD MODAL -->
+<div class="modal-overlay" id="product-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Add Product</div>
+      <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Name *</label>
+          <input type="text" id="p-name" placeholder="BPC-157">
+        </div>
+        <div class="form-group">
+          <label>Price *</label>
+          <input type="text" id="p-price" placeholder="$89.99">
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Category *</label>
+          <select id="p-cat">
+            <option value="recovery">Recovery</option>
+            <option value="performance">Performance</option>
+            <option value="longevity">Longevity</option>
+            <option value="metabolic">Metabolic</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Category Label</label>
+          <input type="text" id="p-catLabel" placeholder="Recovery">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description *</label>
+        <textarea id="p-desc" placeholder="Product description..."></textarea>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Size / Note</label>
+          <input type="text" id="p-note" placeholder="5mg vial">
+        </div>
+        <div class="form-group">
+          <label>Badge (optional)</label>
+          <input type="text" id="p-badge" placeholder="Best Seller">
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Icon Emoji (optional)</label>
+          <input type="text" id="p-emoji" placeholder="&#x1F52C;">
+        </div>
+        <div class="form-group">
+          <label>Image URL (optional)</label>
+          <input type="text" id="p-image" placeholder="/images/product.jpg">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn-sm btn-add" onclick="saveProduct()">Save Product</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const ADMIN_EMAIL = 'golovitlev@gmail.com';
+let products = [];
+let originalProducts = [];
+let editingIndex = -1;
+let sessionPassword = null;
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  const btn   = document.getElementById('login-btn');
+
+  errEl.textContent = '';
+  if (!email || !pass) { errEl.textContent = 'Please enter email and password.'; return; }
+  if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    errEl.textContent = 'Invalid credentials.'; return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Signing in…';
+
+  try {
+    const res = await fetch('/.netlify/functions/save-products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': pass },
+      body: JSON.stringify({ authCheck: true, products: [] })
+    });
+    if (res.status === 401) {
+      errEl.textContent = 'Invalid credentials.';
+      btn.disabled = false; btn.textContent = 'Sign In';
+      return;
+    }
+  } catch (e) {
+    // Network error — allow through (will fail on save)
+  }
+
+  sessionPassword = pass;
+  sessionStorage.setItem('adminPass', pass);
+  sessionStorage.setItem('adminEmail', email);
+  showPanel();
+  btn.disabled = false; btn.textContent = 'Sign In';
+}
+
+function doLogout() {
+  sessionStorage.clear();
+  sessionPassword = null;
+  document.getElementById('admin-panel').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('login-password').value = '';
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  const savedPass  = sessionStorage.getItem('adminPass');
+  const savedEmail = sessionStorage.getItem('adminEmail');
+  if (savedPass && savedEmail) {
+    sessionPassword = savedPass;
+    document.getElementById('login-email').value = savedEmail;
+    showPanel();
+  }
+  document.getElementById('login-password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+});
+
+async function showPanel() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('admin-panel').style.display = 'block';
+  document.getElementById('logged-in-email').textContent = sessionStorage.getItem('adminEmail') || ADMIN_EMAIL;
+  await loadProducts();
+}
+
+// ── Products ──────────────────────────────────────────────────────────────────
+async function loadProducts() {
+  try {
+    const res  = await fetch('/_data/products.json?_=' + Date.now());
+    const data = await res.json();
+    products = data.products || [];
+    originalProducts = JSON.parse(JSON.stringify(products));
+    renderProducts();
+  } catch (e) {
+    products = [];
+    renderProducts();
+  }
+}
+
+function renderProducts() {
+  const list  = document.getElementById('product-list');
+  const empty = document.getElementById('empty-state');
+  document.getElementById('product-count').textContent = products.length ? '(' + products.length + ')' : '';
+
+  if (!products.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  list.innerHTML = products.map((p, i) => '<div class="product-card">' +
+    '<div class="product-emoji">' + (p.emoji || '💊') + '</div>' +
+    '<div class="product-info">' +
+      '<div class="product-name">' + escHtml(p.name) +
+        (p.badge ? ' <span style="margin-left:8px;font-size:10px;background:rgba(212,175,55,.15);color:#D4AF37;padding:2px 7px;border-radius:10px;">' + escHtml(p.badge) + '</span>' : '') +
+      '</div>' +
+      '<div class="product-meta">' +
+        '<span class="cat-badge cat-' + p.cat + '">' + escHtml(p.catLabel || p.cat) + '</span>' +
+        '<span>' + escHtml(p.price) + '</span>' +
+        (p.note ? '<span>' + escHtml(p.note) + '</span>' : '') +
+      '</div>' +
+    '</div>' +
+    '<div class="product-actions">' +
+      '<button class="btn-sm btn-outline" onclick="openEditModal(' + i + ')">Edit</button>' +
+      '<button class="btn-sm btn-danger" onclick="deleteProduct(' + i + ')">Delete</button>' +
+    '</div>' +
+  '</div>').join('');
+}
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function markDirty() {
+  document.getElementById('save-bar').classList.add('visible');
+}
+
+function discardChanges() {
+  products = JSON.parse(JSON.stringify(originalProducts));
+  renderProducts();
+  document.getElementById('save-bar').classList.remove('visible');
+}
+
+async function saveProducts() {
+  const btn    = document.getElementById('save-btn');
+  const status = document.getElementById('save-status');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  status.textContent = 'Publishing…';
+
+  try {
+    const res  = await fetch('/.netlify/functions/save-products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': sessionPassword },
+      body: JSON.stringify({ products })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      originalProducts = JSON.parse(JSON.stringify(products));
+      document.getElementById('save-bar').classList.remove('visible');
+      showToast('Saved! Site updates in ~30 seconds.', 'success');
+    } else {
+      showToast('Save failed: ' + (data.error || 'Unknown error'), 'error');
+    }
+  } catch (e) {
+    showToast('Network error: ' + e.message, 'error');
+  }
+
+  btn.disabled = false; btn.textContent = 'Save & Publish';
+  status.textContent = 'Unsaved changes';
+}
+
+// ── Modal ─────────────────────────────────────────────────────────────────────
+function openAddModal() {
+  editingIndex = -1;
+  document.getElementById('modal-title').textContent = 'Add Product';
+  clearModal();
+  document.getElementById('product-modal').classList.add('open');
+}
+
+function openEditModal(i) {
+  editingIndex = i;
+  const p = products[i];
+  document.getElementById('modal-title').textContent = 'Edit Product';
+  document.getElementById('p-name').value     = p.name     || '';
+  document.getElementById('p-price').value    = p.price    || '';
+  document.getElementById('p-cat').value      = p.cat      || 'recovery';
+  document.getElementById('p-catLabel').value = p.catLabel || '';
+  document.getElementById('p-desc').value     = p.desc     || '';
+  document.getElementById('p-note').value     = p.note     || '';
+  document.getElementById('p-badge').value    = p.badge    || '';
+  document.getElementById('p-emoji').value    = p.emoji    || '';
+  document.getElementById('p-image').value    = p.image    || '';
+  document.getElementById('product-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('product-modal').classList.remove('open');
+}
+
+function clearModal() {
+  ['p-name','p-price','p-catLabel','p-desc','p-note','p-badge','p-emoji','p-image'].forEach(function(id){
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('p-cat').value = 'recovery';
+}
+
+function saveProduct() {
+  const name  = document.getElementById('p-name').value.trim();
+  const price = document.getElementById('p-price').value.trim();
+  const desc  = document.getElementById('p-desc').value.trim();
+  if (!name || !price || !desc) { showToast('Name, price, and description are required.', 'error'); return; }
+
+  const cat = document.getElementById('p-cat').value;
+  const product = {
+    name,
+    cat,
+    catLabel: document.getElementById('p-catLabel').value.trim() || (cat.charAt(0).toUpperCase() + cat.slice(1)),
+    desc,
+    price,
+    note:  document.getElementById('p-note').value.trim(),
+    badge: document.getElementById('p-badge').value.trim(),
+    emoji: document.getElementById('p-emoji').value.trim(),
+    image: document.getElementById('p-image').value.trim()
+  };
+
+  if (editingIndex >= 0) { products[editingIndex] = product; }
+  else { products.push(product); }
+
+  closeModal();
+  renderProducts();
+  markDirty();
+}
+
+function deleteProduct(i) {
+  if (!confirm('Delete "' + products[i].name + '"?')) return;
+  products.splice(i, 1);
+  renderProducts();
+  markDirty();
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + (type || 'success');
+  setTimeout(function(){ t.classList.add('show'); }, 10);
+  setTimeout(function(){ t.classList.remove('show'); }, 4500);
+}
+
+// Close modal on overlay click
+document.getElementById('product-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
 </body>
 </html>
