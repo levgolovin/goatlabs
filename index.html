@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOATlabs | Premium Research Peptides</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--gold-light:#F0D060;--gold-glow:rgba(212,175,55,.35);--black:#000;--dark:#0A0A0A;--dark2:#111;--dark3:#1A1A1A;--dark4:#222;--muted:#888;--border:rgba(212,175,55,.18);--white:#fff}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--dark)}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+
+/* STAR CANVAS — fixed wallpaper */
+#star-bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.7);backdrop-filter:blur(22px);border-bottom:1px solid var(--border);transition:padding .3s}
+nav.scrolled{padding:13px 60px;background:rgba(0,0,0,.95)}
+.logo{display:flex;align-items:center;text-decoration:none}
+.logo-img{height:52px;width:52px;object-fit:contain;mix-blend-mode:screen;transition:filter .3s,transform .3s}
+.logo:hover .logo-img{filter:drop-shadow(0 0 14px rgba(212,175,55,.9));transform:scale(1.06)}
+.footer-brand .logo-img{height:70px;width:70px}
+.nav-links{display:flex;gap:38px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:var(--gold)}.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--gold);color:var(--black);padding:10px 26px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)}
+.nav-cta:hover{background:var(--gold-light);box-shadow:0 6px 28px var(--gold-glow)}
+
+/* HERO */
+.hero{position:relative;z-index:1;height:100vh;min-height:680px;display:flex;align-items:center;justify-content:center;text-align:center;background:transparent}
+.hero-inner{max-width:900px;padding:0 40px}
+.hero-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:6px 20px;margin-bottom:30px;animation:fdU 1s ease .3s both}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:1;margin-bottom:26px;animation:fdU2 1s ease .5s both}
+.hero-h1 .gd{color:var(--gold);text-shadow:0 0 50px rgba(212,175,55,.5)}
+.hero-h1 .ot{-webkit-text-stroke:1px var(--gold);color:transparent}
+.hero-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,.7);line-height:1.75;max-width:580px;margin:0 auto 44px;animation:fdU2 1s ease .7s both}
+.hero-btns{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;animation:fdU2 1s ease .9s both}
+.btn-p{background:var(--gold);color:var(--black);padding:15px 38px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;position:relative;overflow:hidden;transition:all .3s}
+.btn-p::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.18);transform:translateX(-100%);transition:transform .4s ease}
+.btn-p:hover::before{transform:translateX(0)}.btn-p:hover{box-shadow:0 10px 38px rgba(212,175,55,.42);transform:translateY(-2px)}
+.btn-s{background:transparent;color:var(--gold);padding:15px 38px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border:1px solid var(--gold);cursor:pointer;transition:all .3s}
+.btn-s:hover{background:var(--gold);color:var(--black)}
+.scroll-hint{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:bob 2.5s ease infinite}
+.scroll-hint span{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.s-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent)}
+
+/* TRUST */
+.trust{position:relative;z-index:1;background:rgba(10,10,10,.94);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:22px 60px;display:flex;justify-content:center;gap:70px;flex-wrap:wrap}
+.t-item{display:flex;align-items:center;gap:14px}
+.t-icon{font-size:26px;filter:drop-shadow(0 0 8px var(--gold))}
+.t-text strong{display:block;font-size:19px;font-weight:700;color:var(--gold)}
+.t-text span{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+
+/* SECTIONS */
+section{position:relative;z-index:1;padding:96px 60px}
+.slabel{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.stitle{font-family:'Playfair Display',serif;font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.1;margin-bottom:18px}
+.stitle .gd{color:var(--gold)}
+.ssub{font-size:15px;color:rgba(255,255,255,.58);line-height:1.75;max-width:580px;margin-bottom:54px}
+.gold-bar{width:52px;height:2px;background:linear-gradient(to right,var(--gold),transparent);margin-bottom:20px}
+
+/* FEATURED PRODUCTS */
+.feat-sec{background:rgba(10,10,10,.88)}
+.feat-hd{text-align:center}.feat-hd .ssub{margin:0 auto 50px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px;max-width:1100px;margin:0 auto 50px}
+.pcard{background:rgba(17,17,17,.95);border:1px solid var(--border);transition:all .4s;position:relative;overflow:hidden;cursor:pointer}
+.pcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,175,55,.06),transparent 60%);opacity:0;transition:opacity .4s}
+.pcard:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 20px 55px rgba(212,175,55,.15)}.pcard:hover::before{opacity:1}
+.pimg{width:100%;height:220px;background:var(--dark3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pimg img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.pcard:hover .pimg img{transform:scale(1.06)}
+.pimg-ph{font-size:54px;filter:drop-shadow(0 0 18px var(--gold));opacity:.55}
+.pbadge{position:absolute;top:14px;right:14px;background:var(--gold);color:var(--black);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 11px}
+.pbody{padding:24px}
+.pcat{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.pname{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:8px}
+.pdesc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:16px}
+.pmeta{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border)}
+.pprice{font-size:22px;font-weight:700;color:var(--gold)}
+.ppnote{font-size:10px;color:var(--muted);margin-top:2px}
+.pcta{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:9px 20px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .3s;text-decoration:none;display:inline-block}
+.pcta:hover{background:var(--gold);color:var(--black)}
+.view-all-wrap{text-align:center}
+
+/* SCIENCE */
+.sci-sec{background:rgba(0,0,0,.82)}
+.sci-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1300px;margin:0 auto}
+.sci-vis{position:relative;height:480px;display:flex;align-items:center;justify-content:center}
+.ring{position:absolute;border-radius:50%;border:1px solid var(--border);animation:spin 20s linear infinite}
+.ring:nth-child(1){width:380px;height:380px;border-color:rgba(212,175,55,.12);animation-duration:22s}
+.ring:nth-child(2){width:280px;height:280px;border-color:rgba(212,175,55,.22);animation-duration:16s;animation-direction:reverse}
+.ring:nth-child(3){width:180px;height:180px;border-color:rgba(212,175,55,.38);animation-duration:11s}
+.ring::before{content:'';position:absolute;width:10px;height:10px;background:var(--gold);border-radius:50%;top:-5px;left:50%;transform:translateX(-50%);box-shadow:0 0 14px var(--gold)}
+.ring::after{content:'';position:absolute;width:6px;height:6px;background:var(--gold-light);border-radius:50%;bottom:-3px;right:20%;box-shadow:0 0 10px var(--gold)}
+.ring-c{width:90px;height:90px;background:radial-gradient(circle,rgba(212,175,55,.25),transparent);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;filter:drop-shadow(0 0 18px var(--gold));z-index:1;animation:pulse-c 3s ease infinite}
+.sci-feats{display:flex;flex-direction:column;gap:30px}
+.sf{display:flex;gap:18px}
+.sf-ico{width:46px;height:46px;min-width:46px;background:rgba(17,17,17,.9);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:19px;color:var(--gold)}
+.sf-txt h4{font-size:16px;font-weight:600;margin-bottom:5px}
+.sf-txt p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.65}
+
+/* FAQ */
+.faq-sec{background:rgba(17,17,17,.9)}
+.faq-wrap{max-width:780px;margin:0 auto}
+.faq-hd{text-align:center;margin-bottom:54px}
+.fq{border-bottom:1px solid var(--border);overflow:hidden}
+.fq-q{width:100%;background:none;border:none;text-align:left;padding:22px 0;font-size:15px;font-weight:500;color:var(--white);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Inter',sans-serif;transition:color .3s;gap:16px}
+.fq-q:hover{color:var(--gold)}
+.fq-ico{width:30px;height:30px;min-width:30px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--gold);transition:transform .3s,background .3s}
+.fq.open .fq-ico{transform:rotate(45deg);background:var(--gold);color:var(--black)}
+.fq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;font-size:14px;color:rgba(255,255,255,.58);line-height:1.75}
+.fq.open .fq-a{max-height:300px;padding-bottom:22px}
+
+/* FOOTER */
+footer{position:relative;z-index:1;background:rgba(0,0,0,.96);border-top:1px solid var(--border);padding:56px 60px}
+.footer-g{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:56px}
+.footer-brand .logo{display:block;margin-bottom:14px}
+.footer-brand p{font-size:13px;color:var(--muted);line-height:1.7;max-width:260px}
+.footer-col h5{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.footer-col ul{list-style:none}.footer-col ul li{margin-bottom:9px}
+.footer-col ul li a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .3s}.footer-col ul li a:hover{color:var(--gold)}
+.footer-bot{padding-top:36px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bot p,.footer-bot a{font-size:11px;color:var(--muted);text-decoration:none;transition:color .3s}.footer-bot a:hover{color:var(--gold)}
+.legal{font-size:10px;color:rgba(255,255,255,.25);line-height:1.65;margin-top:18px;max-width:700px}
+
+/* CHAT */
+.chat-w{position:fixed;bottom:28px;right:28px;z-index:9999}
+.chat-btn{width:58px;height:58px;background:var(--gold);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 8px 28px rgba(212,175,55,.38);transition:all .3s;position:relative}
+.chat-btn:hover{transform:scale(1.1);box-shadow:0 12px 38px rgba(212,175,55,.55)}
+.chat-pulse{position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--gold);animation:pulse-r 2s ease infinite}
+.chat-panel{position:absolute;bottom:74px;right:0;width:370px;height:510px;background:rgba(17,17,17,.98);border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.7);display:flex;flex-direction:column;overflow:hidden;transform:scale(.8) translateY(20px);opacity:0;pointer-events:none;transform-origin:bottom right;transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.chat-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
+.chat-hd{background:linear-gradient(135deg,var(--dark3),var(--dark4));border-bottom:1px solid var(--border);padding:18px;display:flex;align-items:center;gap:12px}
+.chat-av{width:42px;height:42px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.chat-hd-info h4{font-size:14px;font-weight:600}
+.chat-hd-info span{font-size:11px;color:#4CAF50}
+.chat-msgs{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+.chat-msgs::-webkit-scrollbar{width:3px}.chat-msgs::-webkit-scrollbar-thumb{background:var(--border)}
+.cmsg{max-width:86%;font-size:13px;line-height:1.55;padding:11px 15px}
+.cmsg.bot{background:var(--dark3);border:1px solid var(--border);color:rgba(255,255,255,.82);align-self:flex-start}
+.cmsg.usr{background:var(--gold);color:var(--black);font-weight:500;align-self:flex-end}
+.qr-wrap{padding:10px 18px;display:flex;flex-wrap:wrap;gap:7px;border-top:1px solid var(--border)}
+.qr{background:transparent;border:1px solid var(--border);color:var(--gold);font-size:11px;padding:5px 12px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
+.qr:hover{background:var(--gold);color:var(--black);border-color:var(--gold)}
+.chat-inp-area{padding:14px 18px;border-top:1px solid var(--border);display:flex;gap:8px}
+.chat-inp{flex:1;background:var(--dark3);border:1px solid var(--border);color:var(--white);padding:9px 14px;font-size:12px;font-family:'Inter',sans-serif;outline:none;transition:border-color .3s}
+.chat-inp:focus{border-color:var(--gold)}.chat-inp::placeholder{color:var(--muted)}
+.chat-send{background:var(--gold);border:none;color:var(--black);width:38px;height:38px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .3s}
+.chat-send:hover{background:var(--gold-light)}
+
+/* KEYFRAMES */
+@keyframes fdU{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fdU2{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+@keyframes pulse-r{0%{transform:scale(1);opacity:1}100%{transform:scale(1.9);opacity:0}}
+@keyframes pulse-c{0%,100%{box-shadow:0 0 18px rgba(212,175,55,.4)}50%{box-shadow:0 0 36px rgba(212,175,55,.7)}}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(36px);transition:opacity .75s ease,transform .75s ease}
+.rv.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* HAMBURGER */
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:1001}
+.ham span{display:block;width:24px;height:2px;background:var(--gold);transition:all .3s;transform-origin:center}
+.ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+@media(max-width:900px){
+  nav{padding:14px 20px}
+  .ham{display:flex}
+  .nav-cta{display:none}
+  .nav-links{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);flex-direction:column;align-items:center;justify-content:center;gap:36px;z-index:999;backdrop-filter:blur(20px)}
+  .nav-links.open{display:flex}
+  .nav-links a{font-size:20px;letter-spacing:3px}
+  section{padding:60px 20px}
+  .trust{padding:18px 20px;gap:20px}
+  .sci-grid{grid-template-columns:1fr}.sci-vis{display:none}
+  .footer-g{grid-template-columns:1fr 1fr}
+  .hero-btns{flex-direction:column;align-items:center}
+  .chat-panel{width:calc(100vw - 32px);right:-14px}
+  .logo-img{height:42px;width:42px}
+  .hero-inner{padding:0 20px}
+  footer{padding:40px 20px}
+}
+@media(max-width:520px){
+  .pgrid{grid-template-columns:1fr}
+  .footer-g{grid-template-columns:1fr}
+  .trust{flex-direction:column;align-items:flex-start}
+  .btn-p,.btn-s{width:100%;text-align:center;display:block}
+  .chat-w{bottom:16px;right:16px}
+  .chat-panel{width:calc(100vw - 32px);right:-16px}
+  .hero-h1{font-size:clamp(38px,10vw,60px)}
+  .hero-sub{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<!-- STAR WALLPAPER -->
+<canvas id="star-bg"></canvas>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="logo"><img src="images/logo.png" alt="GOATlabs" class="logo-img"></a>
+  <ul class="nav-links">
+    <li><a href="products.html">All Peptides</a></li>
+    <li><a href="#science">About Us</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="products.html" class="nav-cta">Shop Now</a>
+  <button class="ham" id="ham" onclick="toggleNav()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-tag">Welcome to GOATlabs</div>
+    <h1 class="hero-h1">
+      <span class="gd">Elevate</span><br>
+      <span class="ot">Your Biology</span>
+    </h1>
+    <p class="hero-sub">Pharmaceutical-grade peptides backed by cutting-edge research. Unlock peak human performance with GOATlabs.</p>
+    <div class="hero-btns">
+      <a href="products.html" class="btn-p">Explore Products</a>
+      <a href="#science" class="btn-s">The Science</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="s-line"></div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="t-item rv"><div class="t-icon">⬡</div><div class="t-text"><strong>99%+</strong><span>Purity Guaranteed</span></div></div>
+  <div class="t-item rv d1"><div class="t-icon">◈</div><div class="t-text"><strong>3rd Party</strong><span>Lab Tested</span></div></div>
+  <div class="t-item rv d2"><div class="t-icon">◆</div><div class="t-text"><strong>Fast Ship</strong><span>2–3 Business Days</span></div></div>
+  <div class="t-item rv d3"><div class="t-icon">⬟</div><div class="t-text"><strong>Secure</strong><span>Encrypted Checkout</span></div></div>
+</div>
+
+<!-- FEATURED PRODUCTS -->
+<section class="feat-sec" id="featured">
+  <div class="feat-hd rv">
+    <div class="slabel">Best Sellers</div>
+    <h2 class="stitle">Featured <span class="gd">Compounds</span></h2>
+    <p class="ssub">Our most researched and trusted peptides. Verified purity, fast delivery.</p>
+  </div>
+  <div class="pgrid" id="feat-grid"></div>
+  <div class="view-all-wrap rv">
+    <a href="products.html" class="btn-p">View Full Catalog →</a>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section class="sci-sec" id="science">
+  <div class="sci-grid">
+    <div class="rv">
+      <div class="gold-bar"></div>
+      <div class="slabel">The Science</div>
+      <h2 class="stitle">Research-Backed.<br><span class="gd">Results-Proven.</span></h2>
+      <p class="ssub">GOATlabs sources only the highest-grade compounds through validated synthesis pathways. Every batch is HPLC-tested and COA-verified before it reaches you.</p>
+      <div class="sci-feats">
+        <div class="sf rv d1"><div class="sf-ico">⬡</div><div class="sf-txt"><h4>Pharmaceutical Synthesis</h4><p>Produced under GMP-compliant conditions with strict quality control at every step.</p></div></div>
+        <div class="sf rv d2"><div class="sf-ico">◈</div><div class="sf-txt"><h4>Certificate of Analysis</h4><p>Every product ships with a full COA from independent third-party laboratories.</p></div></div>
+        <div class="sf rv d3"><div class="sf-ico">◆</div><div class="sf-txt"><h4>Peer-Reviewed Research</h4><p>Our catalog is built on published literature — not trends or marketing claims.</p></div></div>
+        <div class="sf rv d4"><div class="sf-ico">⬟</div><div class="sf-txt"><h4>Cold-Chain Logistics</h4><p>Temperature-controlled packaging preserves peptide integrity from lab to doorstep.</p></div></div>
+      </div>
+    </div>
+    <div class="sci-vis rv d2">
+      <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+      <div class="ring-c">⬡</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-sec" id="faq">
+  <div class="faq-wrap">
+    <div class="faq-hd rv">
+      <div class="slabel">Got Questions</div>
+      <h2 class="stitle">Frequently <span class="gd">Asked</span></h2>
+    </div>
+    <div id="faq-list"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-g">
+    <div class="footer-brand">
+      <a href="index.html" class="logo"><img src="images/logo.png" alt="GOATlabs" class="logo-img"></a>
+      <p>Premium research peptides for the serious biohacker. Quality, purity, and science — without compromise.</p>
+    </div>
+    <div class="footer-col"><h5>Products</h5><ul><li><a href="products.html">Recovery</a></li><li><a href="products.html">Performance</a></li><li><a href="products.html">Longevity</a></li><li><a href="products.html">Metabolic</a></li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li><a href="#">About</a></li><li><a href="#science">Science</a></li><li><a href="#">Lab Testing</a></li><li><a href="#">Blog</a></li></ul></div>
+    <div class="footer-col"><h5>Support</h5><ul><li><a href="#faq">FAQ</a></li><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+  </div>
+  <div class="footer-bot">
+    <p>© 2026 GOATlabs. All rights reserved.</p>
+    <div style="display:flex;gap:18px"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Legal</a></div>
+  </div>
+  <p class="legal">DISCLAIMER: All products sold by GOATlabs are for research purposes only. Not intended for human consumption. These statements have not been evaluated by the FDA. Not intended to diagnose, treat, cure, or prevent any disease. Must be 18+ to purchase.</p>
+</footer>
+
+<!-- CHAT WIDGET -->
+<div class="chat-w">
+  <div class="chat-panel" id="chat-panel">
+    <div class="chat-hd">
+      <div class="chat-av">⬡</div>
+      <div class="chat-hd-info"><h4>GOATlabs Advisor</h4><span>● Online — Here to help</span></div>
+    </div>
+    <div class="chat-msgs" id="chat-msgs">
+      <div class="cmsg bot">Welcome to GOATlabs! I'm your peptide advisor. Tell me your goal and I'll recommend the right compounds.</div>
+      <div class="cmsg bot">What are you looking to achieve?</div>
+    </div>
+    <div class="qr-wrap" id="qr-wrap">
+      <button class="qr" onclick="qr('Muscle recovery')">Muscle Recovery</button>
+      <button class="qr" onclick="qr('Fat loss')">Fat Loss</button>
+      <button class="qr" onclick="qr('Anti-aging')">Anti-Aging</button>
+      <button class="qr" onclick="qr('Performance')">Performance</button>
+      <button class="qr" onclick="qr('Injury healing')">Injury Healing</button>
+      <button class="qr" onclick="qr('Show me all products')">All Products</button>
+    </div>
+    <div class="chat-inp-area">
+      <input type="text" class="chat-inp" id="chat-inp" placeholder="Ask about peptides..." />
+      <button class="chat-send" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+  <button class="chat-btn" onclick="toggleChat()">
+    <div class="chat-pulse"></div>💬
+  </button>
+</div>
+
+<script>
+// ================================================================
+// SHARED PRODUCT DATA — edit here, used on homepage featured cards
+// ================================================================
+const FEATURED = [
+  { name:"BPC-157",     cat:"recovery",  catLabel:"Recovery",    desc:"Body Protection Compound. Renowned for accelerating tissue repair, gut healing, and reducing inflammation.", price:"$89.99",  note:"5mg vial",  badge:"Best Seller", emoji:"⬡" },
+  { name:"Semaglutide", cat:"metabolic", catLabel:"Metabolic",   desc:"GLP-1 receptor agonist studied for appetite regulation and metabolic optimization.",                         price:"$129.99", note:"2mg vial",  badge:"Popular",     emoji:"◆" },
+  { name:"CJC-1295",    cat:"performance",catLabel:"Performance", desc:"GHRH analogue that stimulates growth hormone release. Used in longevity and body composition research.",     price:"$74.99",  note:"2mg vial",  badge:null,          emoji:"◇" },
+];
+
+function renderFeatured() {
+  document.getElementById('feat-grid').innerHTML = FEATURED.map((p,i) => `
+    <div class="pcard rv d${i+1}">
+      <div class="pimg">
+        ${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy">` : `<div class="pimg-ph">${p.emoji}</div>`}
+        ${p.badge ? `<div class="pbadge">${p.badge}</div>` : ''}
+      </div>
+      <div class="pbody">
+        <div class="pcat">${p.catLabel}</div>
+        <div class="pname">${p.name}</div>
+        <div class="pdesc">${p.desc}</div>
+        <div class="pmeta">
+          <div><div class="pprice">${p.price}</div><div class="ppnote">${p.note}</div></div>
+          <a href="products.html" class="pcta">View →</a>
+        </div>
+      </div>
+    </div>`).join('');
+  observeRv();
+}
+
+// ================================================================
+// FAQs
+// ================================================================
+const FAQS = [
+  { q:"Are GOATlabs peptides safe for human use?",  a:"All products sold by GOATlabs are strictly for research purposes and not intended for human consumption. We are a research chemical supplier and all compounds are sold to licensed researchers and professionals." },
+  { q:"How do I verify product purity?",            a:"Every product includes a Certificate of Analysis (COA) from an independent third-party laboratory showing HPLC purity results. You can download the COA directly from each product page." },
+  { q:"How are peptides shipped?",                  a:"All lyophilized peptides ship in insulated packaging with ice packs to maintain cold-chain integrity. We ship discreetly via USPS Priority or UPS with full tracking provided at checkout." },
+  { q:"What is the shelf life?",                    a:"Lyophilized peptides are stable for 24+ months at -20°C. Once reconstituted with bacteriostatic water, refrigerate and use within 30 days." },
+  { q:"Do you ship internationally?",               a:"We currently ship within the United States only. International orders are not available at this time due to regulatory considerations." },
+  { q:"What payment methods do you accept?",        a:"We accept all major credit/debit cards, cryptocurrency (BTC, ETH), and Zelle. All transactions are processed through encrypted, secure payment gateways." },
+  { q:"Can I stack multiple peptides?",             a:"Our peptide advisor chatbot can help guide you toward commonly researched stacks based on your goals. Always consult a qualified healthcare professional before any research protocol." },
+];
+
+function renderFAQs() {
+  document.getElementById('faq-list').innerHTML = FAQS.map(f => `
+    <div class="fq rv">
+      <button class="fq-q" onclick="toggleFQ(this)">${f.q}<span class="fq-ico">+</span></button>
+      <div class="fq-a">${f.a}</div>
+    </div>`).join('');
+  observeRv();
+}
+
+function toggleFQ(btn) {
+  const item = btn.parentElement, was = item.classList.contains('open');
+  document.querySelectorAll('.fq.open').forEach(el=>el.classList.remove('open'));
+  if (!was) item.classList.add('open');
+}
+
+// ================================================================
+// STAR CANVAS WALLPAPER
+// ================================================================
+const SC = document.getElementById('star-bg');
+const SX = SC.getContext('2d');
+let stars = [], shooters = [];
+
+function rsz() { SC.width = innerWidth; SC.height = innerHeight; }
+
+class Star {
+  constructor() {
+    this.x = Math.random() * SC.width;
+    this.y = Math.random() * SC.height;
+    const roll = Math.random();
+    this.r = roll < .03 ? Math.random()*1.6+1.8 : roll < .18 ? Math.random()*0.8+0.7 : Math.random()*0.45+0.15;
+    this.maxOp = Math.random()*.65+.18;
+    this.ts = Math.random()*.0012+.0002;
+    this.to = Math.random()*Math.PI*2;
+    this.gold = Math.random() < .11;
+  }
+  draw(ms) {
+    const op = this.maxOp * (.4 + .6*(.5+.5*Math.sin(ms*this.ts+this.to)));
+    const rgb = this.gold ? '212,175,55' : '255,255,255';
+    SX.beginPath(); SX.arc(this.x,this.y,this.r,0,Math.PI*2);
+    SX.fillStyle=`rgba(${rgb},${op})`; SX.fill();
+    if (this.r > 1.3) {
+      SX.beginPath(); SX.arc(this.x,this.y,this.r*5.5,0,Math.PI*2);
+      SX.fillStyle=`rgba(${rgb},${op*.05})`; SX.fill();
+    }
+  }
+}
+
+class Shooter {
+  constructor() { this.active=false; this.reset(); }
+  reset() {
+    this.x  = Math.random()*SC.width*.75 + SC.width*.05;
+    this.y  = Math.random()*SC.height*.3;
+    const a = .4+(Math.random()-.5)*.28;
+    this.ax = Math.cos(a); this.ay = Math.sin(a);
+    this.speed = Math.random()*7+8;
+    this.len   = Math.random()*110+70;
+    this.life=0; this.maxLife=Math.random()*45+38;
+    this.maxOp = Math.random()*.75+.35; this.op=0;
+  }
+  update() {
+    if (!this.active) return;
+    this.life++; this.x+=this.ax*this.speed; this.y+=this.ay*this.speed;
+    const p=this.life/this.maxLife;
+    this.op = p<.2?(p/.2)*this.maxOp : p>.75?((1-p)/.25)*this.maxOp : this.maxOp;
+    if (this.life>=this.maxLife) { this.active=false; }
+  }
+  draw() {
+    if (!this.active||this.op<=0) return;
+    const tx=this.x-this.ax*this.len, ty=this.y-this.ay*this.len;
+    const g=SX.createLinearGradient(tx,ty,this.x,this.y);
+    g.addColorStop(0,'rgba(212,175,55,0)');
+    g.addColorStop(.55,`rgba(212,175,55,${this.op*.22})`);
+    g.addColorStop(1,`rgba(255,255,255,${this.op})`);
+    SX.beginPath(); SX.moveTo(tx,ty); SX.lineTo(this.x,this.y);
+    SX.strokeStyle=g; SX.lineWidth=1.8; SX.stroke();
+    SX.beginPath(); SX.arc(this.x,this.y,1.4,0,Math.PI*2);
+    SX.fillStyle=`rgba(255,255,255,${this.op})`; SX.fill();
+  }
+}
+
+function initStars() {
+  const n = Math.min(Math.floor(SC.width*SC.height/4800), 320);
+  stars = Array.from({length:n}, ()=>new Star());
+  shooters = Array.from({length:4}, ()=>new Shooter());
+}
+
+let shootTimer = 0;
+function tryShoot(ms) {
+  if (!shootTimer) { shootTimer = ms; return; }
+  if (ms-shootTimer > Math.random()*3500+2500) {
+    shootTimer = ms;
+    const idle = shooters.find(s=>!s.active);
+    if (idle) { idle.reset(); idle.active=true; }
+  }
+}
+
+function animStars(ms=0) {
+  SX.clearRect(0,0,SC.width,SC.height);
+  stars.forEach(s=>s.draw(ms));
+  shooters.forEach(s=>{ s.update(); s.draw(); });
+  tryShoot(ms);
+  requestAnimationFrame(animStars);
+}
+
+window.addEventListener('resize',()=>{ rsz(); initStars(); });
+rsz(); initStars(); requestAnimationFrame(animStars);
+
+// ================================================================
+// SCROLL REVEAL
+// ================================================================
+function observeRv() {
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);} });
+  },{threshold:.08});
+  document.querySelectorAll('.rv:not(.vis)').forEach(el=>obs.observe(el));
+}
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',scrollY>55);
+});
+
+// ================================================================
+// CHAT
+// ================================================================
+let chatOpen=false;
+function toggleChat(){chatOpen=!chatOpen;document.getElementById('chat-panel').classList.toggle('open',chatOpen);}
+function qr(text){addMsg(text,'usr');document.getElementById('qr-wrap').style.display='none';setTimeout(()=>botReply(text),650);}
+function sendMsg(){const inp=document.getElementById('chat-inp');const v=inp.value.trim();if(!v)return;inp.value='';addMsg(v,'usr');setTimeout(()=>botReply(v),700);}
+document.getElementById('chat-inp').addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
+function addMsg(text,type){const c=document.getElementById('chat-msgs');const d=document.createElement('div');d.className=`cmsg ${type}`;d.textContent=text;c.appendChild(d);c.scrollTop=c.scrollHeight;}
+const RECS={recovery:["BPC-157 (5mg) — $89.99","TB-500 (5mg) — $94.99"],metabolic:["Semaglutide (2mg) — $129.99","Tirzepatide (5mg) — $149.99"],perform:["CJC-1295 (2mg) — $74.99","Ipamorelin (5mg) — $69.99"],longevity:["Epithalon (10mg) — $84.99","Selank (5mg) — $79.99"]};
+function botReply(input){const t=input.toLowerCase();let lines=[];
+if(/muscle|recover|injur|heal|repair|bpc|tb.500/.test(t)) lines=["For tissue repair & recovery I'd recommend:","• "+RECS.recovery.join("\n• "),"Both are in the Recovery category. Visit our Products page to order."];
+else if(/fat|weight|metabolic|slim|sema|tirze|glp/.test(t)) lines=["For metabolic research & body composition:","• "+RECS.metabolic.join("\n• "),"Tirzepatide is the newer dual-agonist with stronger data."];
+else if(/perform|strength|growth|gh|cjc|ipamor/.test(t)) lines=["For GH-axis & performance research:","• "+RECS.perform.join("\n• "),"Often stacked together for synergistic GH pulse amplification."];
+else if(/anti.ag|longev|aging|telom|epitha|selank/.test(t)) lines=["For longevity & anti-aging research:","• "+RECS.longevity.join("\n• "),"Epithalon for telomere support; Selank for neuroprotection."];
+else if(/sleep|stress|anxi|nootropic|brain|cogni/.test(t)) lines=["Selank is your best fit — anxiolytic and nootropic properties without sedation. Find it in the Longevity section."];
+else if(/stack|combin|together/.test(t)) lines=["Popular researched stacks:","• BPC-157 + TB-500 (Recovery)\n• CJC-1295 + Ipamorelin (GH)\n• Epithalon + Selank (Longevity)","What are your primary goals?"];
+else if(/all product|catalog|everything|list/.test(t)) lines=["Recovery: BPC-157, TB-500\nMetabolic: Semaglutide, Tirzepatide\nPerformance: CJC-1295, Ipamorelin\nLongevity: Epithalon, Selank\n\nVisit the Products page for the full catalog with pricing."];
+else lines=["What's your main goal?","• Tissue repair & recovery\n• Fat loss & metabolic health\n• Longevity & anti-aging\n• Performance & muscle\n• Cognitive & stress relief"];
+lines.forEach((l,i)=>setTimeout(()=>addMsg(l,'bot'),i*420));}
+
+// ================================================================
+// HAMBURGER NAV
+function toggleNav(){
+  document.getElementById('ham').classList.toggle('open');
+  document.querySelector('.nav-links').classList.toggle('open');
+}
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('ham').classList.remove('open');
+  document.querySelector('.nav-links').classList.remove('open');
+}));
+
+// INIT
+// ================================================================
+renderFeatured();
+renderFAQs();
+observeRv();
+</script>
+</body>
+</html>

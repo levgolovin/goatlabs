@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOATlabs | Contact</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--gold-light:#F0D060;--gold-glow:rgba(212,175,55,.35);--black:#000;--dark:#0A0A0A;--dark2:#111;--dark3:#1A1A1A;--dark4:#222;--muted:#888;--border:rgba(212,175,55,.18);--white:#fff}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--dark)}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+
+#star-bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.7);backdrop-filter:blur(22px);border-bottom:1px solid var(--border);transition:padding .3s}
+nav.scrolled{padding:13px 60px;background:rgba(0,0,0,.95)}
+.logo{display:flex;align-items:center;text-decoration:none}
+.logo-img{height:52px;width:52px;object-fit:contain;mix-blend-mode:screen;transition:filter .3s,transform .3s}
+.logo:hover .logo-img{filter:drop-shadow(0 0 14px rgba(212,175,55,.9));transform:scale(1.06)}
+.footer-brand .logo-img{height:70px;width:70px}
+.nav-links{display:flex;gap:38px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{background:var(--gold);color:var(--black);padding:10px 26px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)}
+.nav-cta:hover{background:var(--gold-light);box-shadow:0 6px 28px var(--gold-glow)}
+
+/* PAGE HERO */
+.page-hero{position:relative;z-index:1;min-height:50vh;display:flex;align-items:center;justify-content:center;text-align:center;background:transparent;padding:130px 40px 90px}
+.page-hero-inner{max-width:700px}
+.breadcrumb{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+.breadcrumb a{color:var(--gold);text-decoration:none;transition:opacity .3s}.breadcrumb a:hover{opacity:.7}
+.page-hero-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:5px 18px;margin-bottom:22px;animation:fdU 1s ease .2s both}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(42px,6vw,80px);font-weight:900;line-height:1;animation:fdU2 1s ease .4s both}
+.page-hero h1 .gd{color:var(--gold);text-shadow:0 0 40px rgba(212,175,55,.45)}
+.page-hero h1 .ot{-webkit-text-stroke:1px var(--gold);color:transparent}
+.page-hero p{font-size:16px;font-weight:300;color:rgba(255,255,255,.62);margin-top:18px;line-height:1.7;animation:fdU2 1s ease .6s both}
+
+.divider{position:relative;z-index:1;border:none;border-top:1px solid var(--border);margin:0}
+
+/* CONTACT SECTION */
+.contact-sec{position:relative;z-index:1;padding:80px 60px 110px;background:rgba(8,8,8,.9)}
+.contact-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:70px;max-width:1200px;margin:0 auto;align-items:start}
+
+/* INFO CARDS */
+.contact-info{display:flex;flex-direction:column;gap:20px}
+.info-intro{margin-bottom:10px}
+.info-intro .slabel{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.info-intro h2{font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,40px);font-weight:700;line-height:1.1;margin-bottom:14px}
+.info-intro h2 .gd{color:var(--gold)}
+.info-intro p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.75}
+.gold-bar{width:52px;height:2px;background:linear-gradient(to right,var(--gold),transparent);margin-bottom:20px}
+
+.info-card{background:rgba(17,17,17,.95);border:1px solid var(--border);padding:22px 24px;display:flex;align-items:flex-start;gap:16px;transition:border-color .3s,transform .3s}
+.info-card:hover{border-color:var(--gold);transform:translateX(4px)}
+.info-ico{width:44px;height:44px;min-width:44px;background:rgba(212,175,55,.1);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--gold)}
+.info-txt h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.info-txt p,.info-txt a{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;line-height:1.6;transition:color .3s}
+.info-txt a:hover{color:var(--gold)}
+
+/* FORM */
+.contact-form-wrap{background:rgba(17,17,17,.95);border:1px solid var(--border);padding:40px}
+.form-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:8px}
+.form-sub{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:32px;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.form-group label{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold)}
+.form-group input,
+.form-group select,
+.form-group textarea{background:rgba(26,26,26,.95);border:1px solid var(--border);color:var(--white);padding:12px 16px;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .3s,box-shadow .3s;width:100%;appearance:none;-webkit-appearance:none}
+.form-group select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23D4AF37' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.form-group select option{background:var(--dark2);color:var(--white)}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{border-color:var(--gold);box-shadow:0 0 0 2px rgba(212,175,55,.08)}
+.form-group input::placeholder,
+.form-group textarea::placeholder{color:rgba(255,255,255,.3)}
+.form-group textarea{resize:vertical;min-height:130px}
+.form-notice{font-size:11px;color:rgba(255,255,255,.3);margin-bottom:24px;line-height:1.6}
+.btn-submit{width:100%;background:var(--gold);color:var(--black);padding:16px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;position:relative;overflow:hidden;transition:all .3s;font-family:'Inter',sans-serif}
+.btn-submit::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.18);transform:translateX(-100%);transition:transform .4s ease}
+.btn-submit:hover::before{transform:translateX(0)}.btn-submit:hover{box-shadow:0 8px 30px rgba(212,175,55,.4)}
+.form-success{display:none;text-align:center;padding:32px;background:rgba(212,175,55,.06);border:1px solid var(--gold)}
+.form-success .check{font-size:40px;margin-bottom:14px}
+.form-success h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px;color:var(--gold)}
+.form-success p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.65}
+
+/* FOOTER */
+footer{position:relative;z-index:1;background:rgba(0,0,0,.96);border-top:1px solid var(--border);padding:56px 60px}
+.footer-g{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:56px}
+.footer-brand .logo{display:block;margin-bottom:14px}
+.footer-brand p{font-size:13px;color:var(--muted);line-height:1.7;max-width:260px}
+.footer-col h5{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.footer-col ul{list-style:none}.footer-col ul li{margin-bottom:9px}
+.footer-col ul li a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .3s}.footer-col ul li a:hover{color:var(--gold)}
+.footer-bot{padding-top:36px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bot p,.footer-bot a{font-size:11px;color:var(--muted);text-decoration:none;transition:color .3s}.footer-bot a:hover{color:var(--gold)}
+.legal{font-size:10px;color:rgba(255,255,255,.25);line-height:1.65;margin-top:18px;max-width:700px}
+
+@keyframes fdU{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fdU2{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse-r{0%{transform:scale(1);opacity:1}100%{transform:scale(1.9);opacity:0}}
+.rv{opacity:0;transform:translateY(36px);transition:opacity .75s ease,transform .75s ease}
+.rv.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* HAMBURGER */
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:1001}
+.ham span{display:block;width:24px;height:2px;background:var(--gold);transition:all .3s;transform-origin:center}
+.ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+@media(max-width:960px){
+  .contact-layout{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  nav{padding:14px 20px}
+  .ham{display:flex}
+  .nav-cta{display:none}
+  .nav-links{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);flex-direction:column;align-items:center;justify-content:center;gap:36px;z-index:999;backdrop-filter:blur(20px)}
+  .nav-links.open{display:flex}
+  .nav-links a{font-size:20px;letter-spacing:3px}
+  .contact-sec{padding:50px 20px 80px}
+  .contact-form-wrap{padding:26px 18px}
+  .footer-g{grid-template-columns:1fr 1fr}
+  .page-hero{padding:100px 20px 60px}
+  .logo-img{height:42px;width:42px}
+  footer{padding:40px 20px}
+}
+@media(max-width:520px){
+  .footer-g{grid-template-columns:1fr}
+  .chat-w{bottom:16px;right:16px}
+  .page-hero h1{font-size:clamp(34px,10vw,56px)}
+  .info-card{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<canvas id="star-bg"></canvas>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="logo"><img src="images/logo.png" alt="GOATlabs" class="logo-img"></a>
+  <ul class="nav-links">
+    <li><a href="products.html">All Peptides</a></li>
+    <li><a href="index.html#science">About Us</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <a href="products.html" class="nav-cta">Shop Now</a>
+  <button class="ham" id="ham" onclick="toggleNav()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Contact</div>
+    <div class="page-hero-tag">Get in Touch</div>
+    <h1><span class="gd">Contact</span><br><span class="ot">GOATlabs</span></h1>
+    <p>Questions about products, orders, or research? Our team responds within 24 hours.</p>
+  </div>
+</div>
+<hr class="divider">
+
+<!-- CONTACT SECTION -->
+<section class="contact-sec">
+  <div class="contact-layout">
+
+    <!-- LEFT: INFO -->
+    <div class="contact-info rv">
+      <div class="info-intro">
+        <div class="gold-bar"></div>
+        <div class="slabel">Reach Us</div>
+        <h2>We're Here to <span class="gd">Help</span></h2>
+        <p>Whether you have questions about a specific compound, your order, or need guidance on which peptides fit your research goals — we're standing by.</p>
+      </div>
+
+      <div class="info-card rv d1">
+        <div class="info-ico">✉</div>
+        <div class="info-txt">
+          <h4>Email</h4>
+          <a href="mailto:support@goatlabs.com">support@goatlabs.com</a>
+          <p>We respond within 24 hours, Mon–Fri.</p>
+        </div>
+      </div>
+
+      <div class="info-card rv d2">
+        <div class="info-ico">◷</div>
+        <div class="info-txt">
+          <h4>Business Hours</h4>
+          <p>Monday – Friday: 9am – 6pm EST<br>Saturday: 10am – 2pm EST</p>
+        </div>
+      </div>
+
+      <div class="info-card rv d3">
+        <div class="info-ico">◈</div>
+        <div class="info-txt">
+          <h4>Order Support</h4>
+          <p>For order tracking, returns, or shipping issues please include your order number in the subject line.</p>
+        </div>
+      </div>
+
+      <div class="info-card rv d3">
+        <div class="info-ico">⬡</div>
+        <div class="info-txt">
+          <h4>Research Inquiries</h4>
+          <p>Bulk orders, wholesale, or lab partnerships? Reach out with details and we'll respond with custom pricing.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="contact-form-wrap rv d2">
+      <h3 class="form-title">Send a Message</h3>
+      <p class="form-sub">Fill in the form below and a member of our team will get back to you as soon as possible.</p>
+
+      <form id="contact-form" onsubmit="submitForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" placeholder="John" required>
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" placeholder="Doe" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="john@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <select id="subject" name="subject" required>
+            <option value="" disabled selected>Select a topic...</option>
+            <option value="order">Order / Shipping Inquiry</option>
+            <option value="product">Product Question</option>
+            <option value="research">Research Guidance</option>
+            <option value="wholesale">Wholesale / Bulk Order</option>
+            <option value="returns">Returns & Refunds</option>
+            <option value="coa">Certificate of Analysis Request</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="msg">Message</label>
+          <textarea id="msg" name="msg" placeholder="Tell us how we can help..." required></textarea>
+        </div>
+
+        <p class="form-notice">By submitting this form you confirm you are 18+ and agree to our privacy policy. All products are for research use only.</p>
+        <button type="submit" class="btn-submit">Send Message →</button>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <div class="check">✦</div>
+        <h3>Message Sent</h3>
+        <p>Thank you for reaching out. A member of our team will respond within 24 hours.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-g">
+    <div class="footer-brand">
+      <a href="index.html" class="logo"><img src="images/logo.png" alt="GOATlabs" class="logo-img"></a>
+      <p>Premium research peptides for the serious biohacker. Quality, purity, and science — without compromise.</p>
+    </div>
+    <div class="footer-col"><h5>Products</h5><ul><li><a href="products.html">Recovery</a></li><li><a href="products.html">Performance</a></li><li><a href="products.html">Longevity</a></li><li><a href="products.html">Metabolic</a></li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li><a href="#">About</a></li><li><a href="index.html#science">Science</a></li><li><a href="#">Lab Testing</a></li><li><a href="#">Blog</a></li></ul></div>
+    <div class="footer-col"><h5>Support</h5><ul><li><a href="index.html#faq">FAQ</a></li><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+  </div>
+  <div class="footer-bot">
+    <p>© 2026 GOATlabs. All rights reserved.</p>
+    <div style="display:flex;gap:18px"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Legal</a></div>
+  </div>
+  <p class="legal">DISCLAIMER: All products sold by GOATlabs are for research purposes only. Not intended for human consumption. These statements have not been evaluated by the FDA. Not intended to diagnose, treat, cure, or prevent any disease. Must be 18+ to purchase.</p>
+</footer>
+
+<script>
+// FORM SUBMIT
+function submitForm(e) {
+  e.preventDefault();
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+
+// STAR CANVAS
+const SC=document.getElementById('star-bg'),SX=SC.getContext('2d');
+let stars=[],shooters=[];
+function rsz(){SC.width=innerWidth;SC.height=innerHeight;}
+class Star{
+  constructor(){this.x=Math.random()*SC.width;this.y=Math.random()*SC.height;const r=Math.random();this.r=r<.03?Math.random()*1.6+1.8:r<.18?Math.random()*.8+.7:Math.random()*.45+.15;this.maxOp=Math.random()*.65+.18;this.ts=Math.random()*.0012+.0002;this.to=Math.random()*Math.PI*2;this.gold=Math.random()<.11;}
+  draw(ms){const op=this.maxOp*(.4+.6*(.5+.5*Math.sin(ms*this.ts+this.to)));const rgb=this.gold?'212,175,55':'255,255,255';SX.beginPath();SX.arc(this.x,this.y,this.r,0,Math.PI*2);SX.fillStyle=`rgba(${rgb},${op})`;SX.fill();if(this.r>1.3){SX.beginPath();SX.arc(this.x,this.y,this.r*5.5,0,Math.PI*2);SX.fillStyle=`rgba(${rgb},${op*.05})`;SX.fill();}}
+}
+class Shooter{
+  constructor(){this.active=false;this.reset();}
+  reset(){this.x=Math.random()*SC.width*.75+SC.width*.05;this.y=Math.random()*SC.height*.3;const a=.4+(Math.random()-.5)*.28;this.ax=Math.cos(a);this.ay=Math.sin(a);this.speed=Math.random()*7+8;this.len=Math.random()*110+70;this.life=0;this.maxLife=Math.random()*45+38;this.maxOp=Math.random()*.75+.35;this.op=0;}
+  update(){if(!this.active)return;this.life++;this.x+=this.ax*this.speed;this.y+=this.ay*this.speed;const p=this.life/this.maxLife;this.op=p<.2?(p/.2)*this.maxOp:p>.75?((1-p)/.25)*this.maxOp:this.maxOp;if(this.life>=this.maxLife){this.active=false;}}
+  draw(){if(!this.active||this.op<=0)return;const tx=this.x-this.ax*this.len,ty=this.y-this.ay*this.len;const g=SX.createLinearGradient(tx,ty,this.x,this.y);g.addColorStop(0,'rgba(212,175,55,0)');g.addColorStop(.55,`rgba(212,175,55,${this.op*.22})`);g.addColorStop(1,`rgba(255,255,255,${this.op})`);SX.beginPath();SX.moveTo(tx,ty);SX.lineTo(this.x,this.y);SX.strokeStyle=g;SX.lineWidth=1.8;SX.stroke();SX.beginPath();SX.arc(this.x,this.y,1.4,0,Math.PI*2);SX.fillStyle=`rgba(255,255,255,${this.op})`;SX.fill();}
+}
+function initStars(){const n=Math.min(Math.floor(SC.width*SC.height/4800),320);stars=Array.from({length:n},()=>new Star());shooters=Array.from({length:4},()=>new Shooter());}
+let shootTimer=0;
+function tryShoot(ms){if(!shootTimer){shootTimer=ms;return;}if(ms-shootTimer>Math.random()*3500+2500){shootTimer=ms;const idle=shooters.find(s=>!s.active);if(idle){idle.reset();idle.active=true;}}}
+function animStars(ms=0){SX.clearRect(0,0,SC.width,SC.height);stars.forEach(s=>s.draw(ms));shooters.forEach(s=>{s.update();s.draw();});tryShoot(ms);requestAnimationFrame(animStars);}
+window.addEventListener('resize',()=>{rsz();initStars();});
+rsz();initStars();requestAnimationFrame(animStars);
+
+// HAMBURGER NAV
+function toggleNav(){
+  document.getElementById('ham').classList.toggle('open');
+  document.querySelector('.nav-links').classList.toggle('open');
+}
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('ham').classList.remove('open');
+  document.querySelector('.nav-links').classList.remove('open');
+}));
+
+// SCROLL & REVEAL
+function observeRv(){const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:.08});document.querySelectorAll('.rv:not(.vis)').forEach(el=>obs.observe(el));}
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>55);});
+observeRv();
+</script>
+</body>
+</html>
