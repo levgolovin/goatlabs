@@ -1,0 +1,84 @@
+{
+  "products": [
+    {
+      "name": "BPC-157",
+      "cat": "recovery",
+      "catLabel": "Recovery",
+      "desc": "Body Protection Compound. Renowned for accelerating tissue repair, gut healing, and reducing inflammation.",
+      "price": "$89.99",
+      "note": "5mg vial",
+      "badge": "Best Seller",
+      "emoji": "⬡"
+    },
+    {
+      "name": "TB-500",
+      "cat": "recovery",
+      "catLabel": "Recovery",
+      "desc": "Thymosin Beta-4 fragment. Promotes systemic healing, flexibility, and muscle fiber regeneration.",
+      "price": "$94.99",
+      "note": "5mg vial",
+      "badge": "",
+      "emoji": "◈"
+    },
+    {
+      "name": "Semaglutide",
+      "cat": "metabolic",
+      "catLabel": "Metabolic",
+      "desc": "GLP-1 receptor agonist studied for appetite regulation and metabolic optimization.",
+      "price": "$129.99",
+      "note": "2mg vial",
+      "badge": "Popular",
+      "emoji": "◆"
+    },
+    {
+      "name": "Tirzepatide",
+      "cat": "metabolic",
+      "catLabel": "Metabolic",
+      "desc": "Dual GIP/GLP-1 agonist. Next-generation metabolic research compound with strong clinical data.",
+      "price": "$149.99",
+      "note": "5mg vial",
+      "badge": "New",
+      "emoji": "⬟"
+    },
+    {
+      "name": "CJC-1295",
+      "cat": "performance",
+      "catLabel": "Performance",
+      "desc": "GHRH analogue that stimulates growth hormone release. Used in longevity and body composition research.",
+      "price": "$74.99",
+      "note": "2mg vial",
+      "badge": "",
+      "emoji": "◇"
+    },
+    {
+      "name": "Ipamorelin",
+      "cat": "performance",
+      "catLabel": "Performance",
+      "desc": "Selective growth hormone secretagogue. Stack with CJC-1295 for synergistic GH pulse amplification.",
+      "price": "$69.99",
+      "note": "5mg vial",
+      "badge": "",
+      "emoji": "△"
+    },
+    {
+      "name": "Epithalon",
+      "cat": "longevity",
+      "catLabel": "Longevity",
+      "desc": "Tetrapeptide studied for telomere elongation, melatonin regulation, and cellular rejuvenation.",
+      "price": "$84.99",
+      "note": "10mg vial",
+      "badge": "",
+      "emoji": "✦"
+    },
+    {
+      "name": "Selank",
+      "cat": "longevity",
+      "catLabel": "Longevity",
+      "desc": "Heptapeptide anxiolytic with nootropic properties. Research focuses on stress modulation and cognitive clarity.",
+      "price": "$79.99",
+      "note": "5mg vial",
+      "badge": "",
+      "emoji": "⊕"
+    }
+  ]
+}

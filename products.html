@@ -236,20 +236,8 @@ footer{position:relative;z-index:1;background:rgba(0,0,0,.96);border-top:1px sol
 </div>
 
 <script>
-// ================================================================
-// PRODUCTS — edit name, cat, catLabel, desc, price, note, badge
-// For real image: add  image: "images/filename.jpg"
-// ================================================================
-const PRODUCTS = [
-  { name:"BPC-157",     cat:"recovery",    catLabel:"Recovery",    desc:"Body Protection Compound. Renowned for accelerating tissue repair, gut healing, and reducing inflammation.",        price:"$89.99",  note:"5mg vial",  badge:"Best Seller", emoji:"⬡" },
-  { name:"TB-500",      cat:"recovery",    catLabel:"Recovery",    desc:"Thymosin Beta-4 fragment. Promotes systemic healing, flexibility, and muscle fiber regeneration.",                 price:"$94.99",  note:"5mg vial",  badge:null,          emoji:"◈" },
-  { name:"Semaglutide", cat:"metabolic",   catLabel:"Metabolic",   desc:"GLP-1 receptor agonist studied for appetite regulation and metabolic optimization.",                               price:"$129.99", note:"2mg vial",  badge:"Popular",     emoji:"◆" },
-  { name:"Tirzepatide", cat:"metabolic",   catLabel:"Metabolic",   desc:"Dual GIP/GLP-1 agonist. Next-generation metabolic research compound with strong clinical data.",                  price:"$149.99", note:"5mg vial",  badge:"New",         emoji:"⬟" },
-  { name:"CJC-1295",    cat:"performance", catLabel:"Performance", desc:"GHRH analogue that stimulates growth hormone release. Used in longevity and body composition research.",           price:"$74.99",  note:"2mg vial",  badge:null,          emoji:"◇" },
-  { name:"Ipamorelin",  cat:"performance", catLabel:"Performance", desc:"Selective growth hormone secretagogue. Stack with CJC-1295 for synergistic GH pulse amplification.",              price:"$69.99",  note:"5mg vial",  badge:null,          emoji:"△" },
-  { name:"Epithalon",   cat:"longevity",   catLabel:"Longevity",   desc:"Tetrapeptide studied for telomere elongation, melatonin regulation, and cellular rejuvenation.",                  price:"$84.99",  note:"10mg vial", badge:null,          emoji:"✦" },
-  { name:"Selank",      cat:"longevity",   catLabel:"Longevity",   desc:"Heptapeptide anxiolytic with nootropic properties. Research focuses on stress modulation and cognitive clarity.", price:"$79.99",  note:"5mg vial",  badge:null,          emoji:"⊕" },
-];
+// Products loaded from /_data/products.json (managed via /admin CMS)
+let PRODUCTS = [];
 
 function renderProducts(f) {
   const list = f==='all' ? PRODUCTS : PRODUCTS.filter(p=>p.cat===f);
@@ -323,6 +311,17 @@ else if(/stack|combin|together/.test(t))lines=["Popular stacks:","• BPC-157 + 
 else lines=["What's your goal?","• Tissue repair & recovery\n• Fat loss & metabolic\n• Longevity & anti-aging\n• Performance & muscle\n• Cognitive & stress relief"];
 lines.forEach((l,i)=>setTimeout(()=>addMsg(l,'bot'),i*420));}
 
+// LOAD PRODUCTS FROM CMS JSON
+fetch('/_data/products.json')
+  .then(r => r.json())
+  .then(data => {
+    PRODUCTS = data.products.map(p => ({ ...p, badge: p.badge || null }));
+    renderProducts('all');
+  })
+  .catch(() => {
+    document.getElementById('pgrid').innerHTML = '<p style="color:rgba(255,255,255,.4);text-align:center;padding:40px">Unable to load products.</p>';
+  });
+
 // HAMBURGER NAV
 function toggleNav(){
   document.getElementById('ham').classList.toggle('open');
@@ -334,7 +333,6 @@ document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',
 }));
 
 // INIT
-renderProducts('all');
 observeRv();
 </script>
 </body>
