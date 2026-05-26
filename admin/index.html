@@ -72,6 +72,19 @@
 
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 
+  /* IMAGE UPLOAD */
+  .img-upload-area{border:2px dashed rgba(255,255,255,.15);border-radius:8px;padding:0;cursor:pointer;transition:border .2s;overflow:hidden;position:relative;min-height:100px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.03)}
+  .img-upload-area:hover{border-color:rgba(212,175,55,.5)}
+  .img-upload-area.has-image{border-style:solid;border-color:rgba(212,175,55,.3)}
+  .img-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+  .img-preview{width:100%;height:130px;object-fit:cover;display:block}
+  .img-placeholder{text-align:center;padding:20px;pointer-events:none}
+  .img-placeholder .icon{font-size:24px;margin-bottom:6px;opacity:.4}
+  .img-placeholder p{font-size:12px;color:rgba(255,255,255,.35)}
+  .img-remove{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.2);border-radius:4px;color:#fff;font-size:11px;padding:3px 7px;cursor:pointer;z-index:2}
+  .img-remove:hover{background:rgba(255,80,80,.5)}
+  .uploading-badge{position:absolute;bottom:6px;left:6px;background:rgba(0,0,0,.8);border-radius:4px;font-size:11px;color:#D4AF37;padding:3px 8px}
+
   .save-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.9);border:1px solid rgba(212,175,55,.4);border-radius:50px;padding:12px 24px;display:flex;align-items:center;gap:14px;backdrop-filter:blur(10px);z-index:50;transition:opacity .3s;opacity:0;pointer-events:none;white-space:nowrap}
   .save-bar.visible{opacity:1;pointer-events:all}
   .save-status{font-size:13px;color:rgba(255,255,255,.6)}
@@ -194,8 +207,18 @@
           <input type="text" id="p-emoji" placeholder="&#x1F52C;">
         </div>
         <div class="form-group">
-          <label>Image URL (optional)</label>
-          <input type="text" id="p-image" placeholder="/images/product.jpg">
+          <label>Product Image (optional)</label>
+          <div class="img-upload-area" id="img-upload-area">
+            <input type="file" id="p-image-file" accept="image/*" onchange="handleImageSelect(event)">
+            <img id="img-preview" class="img-preview" style="display:none" alt="preview">
+            <div class="img-placeholder" id="img-placeholder">
+              <div class="icon">🖼️</div>
+              <p>Click to upload image</p>
+            </div>
+            <button class="img-remove" id="img-remove" style="display:none" onclick="removeImage(event)">✕ Remove</button>
+            <div class="uploading-badge" id="uploading-badge" style="display:none">Uploading…</div>
+          </div>
+          <input type="hidden" id="p-image">
         </div>
       </div>
     </div>
@@ -387,11 +410,18 @@ function openEditModal(i) {
   document.getElementById('p-badge').value    = p.badge    || '';
   document.getElementById('p-emoji').value    = p.emoji    || '';
   document.getElementById('p-image').value    = p.image    || '';
+  pendingImageFile = null;
+  if (p.image) {
+    setImagePreview(p.image);
+  } else {
+    resetImageArea();
+  }
   document.getElementById('product-modal').classList.add('open');
 }
 
 function closeModal() {
   document.getElementById('product-modal').classList.remove('open');
+  pendingImageFile = null;
 }
 
 function clearModal() {
@@ -399,13 +429,31 @@ function clearModal() {
     document.getElementById(id).value = '';
   });
   document.getElementById('p-cat').value = 'recovery';
+  pendingImageFile = null;
+  resetImageArea();
 }
 
-function saveProduct() {
+function resetImageArea() {
+  document.getElementById('img-preview').style.display = 'none';
+  document.getElementById('img-placeholder').style.display = 'block';
+  document.getElementById('img-remove').style.display = 'none';
+  document.getElementById('img-upload-area').classList.remove('has-image');
+  document.getElementById('p-image-file').value = '';
+  document.getElementById('uploading-badge').style.display = 'none';
+}
+
+async function saveProduct() {
   const name  = document.getElementById('p-name').value.trim();
   const price = document.getElementById('p-price').value.trim();
   const desc  = document.getElementById('p-desc').value.trim();
   if (!name || !price || !desc) { showToast('Name, price, and description are required.', 'error'); return; }
+
+  // Upload image first if one was selected
+  let imagePath = document.getElementById('p-image').value.trim();
+  if (pendingImageFile) {
+    const uploaded = await uploadPendingImage();
+    if (uploaded) imagePath = uploaded;
+  }
 
   const cat = document.getElementById('p-cat').value;
   const product = {
@@ -417,7 +465,7 @@ function saveProduct() {
     note:  document.getElementById('p-note').value.trim(),
     badge: document.getElementById('p-badge').value.trim(),
     emoji: document.getElementById('p-emoji').value.trim(),
-    image: document.getElementById('p-image').value.trim()
+    image: imagePath
   };
 
   if (editingIndex >= 0) { products[editingIndex] = product; }
@@ -442,6 +490,81 @@ function showToast(msg, type) {
   t.className = 'toast ' + (type || 'success');
   setTimeout(function(){ t.classList.add('show'); }, 10);
   setTimeout(function(){ t.classList.remove('show'); }, 4500);
+}
+
+// ── Image Upload ──────────────────────────────────────────────────────────────
+let pendingImageFile = null;
+
+async function handleImageSelect(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  // Show local preview immediately
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    setImagePreview(e.target.result);
+  };
+  reader.readAsDataURL(file);
+
+  pendingImageFile = file;
+  document.getElementById('p-image').value = '';
+}
+
+function setImagePreview(src) {
+  const preview = document.getElementById('img-preview');
+  const placeholder = document.getElementById('img-placeholder');
+  const removeBtn = document.getElementById('img-remove');
+  const area = document.getElementById('img-upload-area');
+  preview.src = src;
+  preview.style.display = 'block';
+  placeholder.style.display = 'none';
+  removeBtn.style.display = 'block';
+  area.classList.add('has-image');
+}
+
+function removeImage(e) {
+  e.preventDefault(); e.stopPropagation();
+  pendingImageFile = null;
+  document.getElementById('p-image').value = '';
+  document.getElementById('img-preview').style.display = 'none';
+  document.getElementById('img-placeholder').style.display = 'block';
+  document.getElementById('img-remove').style.display = 'none';
+  document.getElementById('img-upload-area').classList.remove('has-image');
+  document.getElementById('p-image-file').value = '';
+}
+
+async function uploadPendingImage() {
+  if (!pendingImageFile) return null;
+  const badge = document.getElementById('uploading-badge');
+  badge.style.display = 'block';
+
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+      const base64 = e.target.result.split(',')[1];
+      try {
+        const res = await fetch('/.netlify/functions/upload-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-admin-password': sessionPassword },
+          body: JSON.stringify({ filename: pendingImageFile.name, content: base64 })
+        });
+        const data = await res.json();
+        badge.style.display = 'none';
+        if (res.ok && data.path) {
+          pendingImageFile = null;
+          resolve(data.path);
+        } else {
+          showToast('Image upload failed: ' + (data.error || 'Unknown'), 'error');
+          resolve(null);
+        }
+      } catch (err) {
+        badge.style.display = 'none';
+        showToast('Image upload error: ' + err.message, 'error');
+        resolve(null);
+      }
+    };
+    reader.readAsDataURL(pendingImageFile);
+  });
 }
 
 // Close modal on overlay click
